@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../controllers/form_controllers.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -19,7 +20,7 @@ class _MainPageState extends State<MainPage> {
       backgroundColor: Colors.lightBlue[200],
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 32.0),
+          padding: const EdgeInsets.symmetric(vertical: 32.0),
           child: Center(
             child: Container(
               padding: const EdgeInsets.all(36.0),
@@ -29,8 +30,8 @@ class _MainPageState extends State<MainPage> {
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     'Cadastro CESBF',
                     style: TextStyle(
                       fontSize: 32,
@@ -38,29 +39,57 @@ class _MainPageState extends State<MainPage> {
                       color: Colors.purpleAccent,
                     ),
                   ),
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
                   TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Campo de texto',
+                    controller: Controllers.nameController,
+                    decoration: const InputDecoration(
+                      labelText: 'Nome',
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
                   TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Campo de texto',
+                    controller: Controllers.lastNameController,
+                    decoration: const InputDecoration(
+                      labelText: 'Sobrenome',
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: OutlineInputBorder(),
                     ),
                   ),
-                  SizedBox(height: 32),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Campo de texto',
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: OutlineInputBorder(),
-                    ),
+                  const SizedBox(height: 32),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: TextField(
+                          controller: Controllers.celularController,
+                          decoration: const InputDecoration(
+                            labelText: 'Celular',
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      Flexible(
+                        child: TextField(
+                          decoration: const InputDecoration(
+                            labelText: 'Telefone',
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                            border: OutlineInputBorder(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 32),
+                  ElevatedButton(
+                    child: const Text('Validar'),
+                    onPressed: () {
+                      print(Controllers.nameController.text);
+                      print(Controllers.lastNameController.text);
+                      print(Controllers.celularController.text);
+                    },
                   ),
                 ],
               ),
