@@ -34,6 +34,7 @@ class _MainPageState extends State<MainPage> {
               child: Form(
                 key: _formKey,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text(
                       'Cadastro CESBF',
@@ -45,7 +46,6 @@ class _MainPageState extends State<MainPage> {
                     ),
                     const SizedBox(height: 48),
                     TextFormFieldWidget(
-                      onChanged: (text) => Controllers.nameController.text = text,
                       label: 'Nome',
                       controller: Controllers.nameController,
                       validator: true,
@@ -66,7 +66,7 @@ class _MainPageState extends State<MainPage> {
                           child: TextFormFieldWidget(
                             controller: Controllers.dataNascimentoController,
                             label: 'Data de Nascimento',
-                            icon: Icons.date_range_rounded,
+                            date: true,
                           ),
                         ),
                       ],
