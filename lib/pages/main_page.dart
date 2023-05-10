@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../controllers/form_controllers.dart';
 import '../widgets/text_form_field_widget.dart';
 
@@ -13,10 +14,26 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
 
-  double width = MediaQuery.of(context).size.width > 780
-    ? 700 : MediaQuery.of(context).size.width * 0.9;
+    double width = MediaQuery.of(context).size.width > 780
+      ? 700 : MediaQuery.of(context).size.width * 0.9;
 
-  final _formKey = GlobalKey<FormState>();
+    final _formKey = GlobalKey<FormState>();
+
+    onPressedDatePicker() async {
+      DateTime? datePicker = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1920),
+        lastDate: DateTime(2120),
+        // locale: Locale('pt', 'BR'),
+      );
+
+      if(datePicker != null) {
+        setState(() {
+          Controllers.dataNascimentoController.text = DateFormat('dd/MM/yyyy').format(datePicker);
+        });
+      }
+    }
 
     return Scaffold(
       backgroundColor: Colors.deepPurple[200],
@@ -66,7 +83,8 @@ class _MainPageState extends State<MainPage> {
                           child: TextFormFieldWidget(
                             controller: Controllers.dataNascimentoController,
                             label: 'Data de Nascimento',
-                            date: true,
+                            icon: Icons.calendar_month_rounded,
+                            onPressedIconAsync: onPressedDatePicker,
                           ),
                         ),
                       ],

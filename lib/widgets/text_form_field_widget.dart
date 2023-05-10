@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class TextFormFieldWidget extends StatefulWidget {
   TextFormFieldWidget({
     this.validator,
     this.onChanged,
-    this.date,
+    this.onPressedIcon,
+    this.onPressedIconAsync,
+    this.icon,
     required this.label,
     required this.controller,
     super.key,
@@ -13,7 +14,9 @@ class TextFormFieldWidget extends StatefulWidget {
 
   bool? validator;
   Function(String)? onChanged;
-  bool? date;
+  Future<Null> Function()? onPressedIconAsync;
+  Function? onPressedIcon;
+  IconData? icon;
   final String label;
   final TextEditingController controller;
 
@@ -27,12 +30,33 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
+    
+
+    // Lógica para colocar alguma função no "onPressed" do TextFormField
+    final onPressed;
+
+    if(widget.onPressedIcon != null) {
+      onPressed = widget.onPressedIcon;
+    } else if(widget.onPressedIconAsync != null) {
+      onPressed = widget.onPressedIconAsync;
+    } else {
+      onPressed = null;
+    }
+    // ---
+
+  
     return TextFormField(
       onChanged: widget.onChanged,
       controller: widget.controller,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.only(left: 11, right: 3, top: 14, bottom: 14),
         errorStyle: const TextStyle(fontSize: 0, height: -8),
+        errorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            width: 1.5,
+            color: Color.fromARGB(180, 211, 47, 47),
+          ),
+        ),
         labelText: widget.label,
         labelStyle: const TextStyle(
           color: Colors.deepPurple,
@@ -49,29 +73,13 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
             width: 1.5,
           ),
         ),
-        suffixIcon: widget.date != null 
+        suffixIcon: widget.icon != null 
           ? IconButton(
             icon: Icon(
-              Icons.calendar_month_rounded,
+              widget.icon,
               color: Colors.deepPurple,
             ),
-            onPressed: (widget.date == true)
-            ? () async {
-              DateTime? datePicker = await showDatePicker(
-                context: context,
-                initialDate: DateTime.now(),
-                firstDate: DateTime(1920),
-                lastDate: DateTime(2120),
-                // locale: Locale('pt', 'BR'),
-              );
-
-              if(datePicker != null) {
-                setState(() {
-                  widget.controller.text = DateFormat('dd/MM/yyyy').format(datePicker);
-                });
-              }
-            }
-            : () {}
+            onPressed: onPressed ?? () {}
           )
           : null,
       ),
