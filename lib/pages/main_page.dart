@@ -110,20 +110,85 @@ class _MainPageState extends State<MainPage> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 48),
-                    SizedBox(
-                      width: 85,
-                      height: 40,
-                      child: ElevatedButton(
-                        child: const Text(
-                          'Validar',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                    const SizedBox(height: 32),
+                    Row(
+                      children: [
+                        Flexible(
+                          child: TextFormFieldWidget(
+                            controller: Controllers.ufController,
+                            label: 'UF',
                           ),
                         ),
-                        onPressed: () => _formKey.currentState!.validate(),
-                      ),
+                        const SizedBox(width: 20),
+                        Flexible(
+                          flex: 3,
+                          child: TextFormFieldWidget(
+                            controller: Controllers.cidadeController,
+                            label: 'Cidade',
+                          ),
+                        ),
+                      ]
+                    ),
+                    const SizedBox(height: 32),
+                    TextFormFieldWidget(
+                      controller: Controllers.ruaController,
+                      label: 'Rua',
+                    ),
+                    const SizedBox(height: 32),
+                    TextFormFieldWidget(
+                      controller: Controllers.bairroController,
+                      label: 'Bairro',
+                    ),
+                    const SizedBox(height: 32),
+                    TextFormFieldWidget(
+                      controller: Controllers.profissaoController,
+                      label: 'Profissão',
+                    ),
+                    const SizedBox(height: 32),
+                    TextFormFieldWidget(
+                      controller: Controllers.formacaoController,
+                      label: 'Formação Profissional',
+                    ),
+                    const SizedBox(height: 32),
+                    TextFormFieldWidget(
+                      controller: Controllers.localTrabalhoController,
+                      label: 'Local de Trabalho',
+                    ),
+                    const SizedBox(height: 48),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          width: 110,
+                          height: 40,
+                          child: TextButton(
+                            onPressed: () {},
+                            style: TextButton.styleFrom(
+                              backgroundColor: Colors.deepPurple.shade200,
+                            ),
+                            child: const Text(
+                              'Reuniões',
+                              style: TextStyle(
+                                color: Color.fromRGBO(69, 39, 160, 1),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 110,
+                          height: 40,
+                          child: ElevatedButton(
+                            child: const Text(
+                              'Cadastrar',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            onPressed: () => _formKey.currentState!.validate(),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

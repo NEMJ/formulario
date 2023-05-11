@@ -8,7 +8,7 @@ class Controllers {
   static TextEditingController dataNascimentoController = TextEditingController();
   static TextEditingController ufController = TextEditingController();
   static TextEditingController cidadeController = TextEditingController();
-  static TextEditingController enderecoController = TextEditingController();
+  static TextEditingController ruaController = TextEditingController();
   static TextEditingController bairroController = TextEditingController();
   static TextEditingController profissaoController = TextEditingController();
   static TextEditingController formacaoController = TextEditingController();
