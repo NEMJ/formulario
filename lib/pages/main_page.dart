@@ -1,6 +1,9 @@
+import 'package:file_picker/_internal/file_picker_web.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../controllers/form_controllers.dart';
+import '../widgets/dropdown_form_field_widget.dart';
 import '../widgets/text_form_field_widget.dart';
 
 class MainPage extends StatefulWidget {
@@ -11,13 +14,36 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
+  String imageName = 'Nenhuma imagem selecionada';
+  FilePickerResult? _imagePicker;
+
+  onPressedImagePicker() async {
+    _imagePicker = await FilePickerWeb.platform.pickFiles(
+      type: FileType.image,
+    );
+    
+    if(_imagePicker != null) {
+      imageName = _imagePicker!.files.single.name;
+      setState(() => imageName);
+    }
+  }
+
+  final _formKey = GlobalKey<FormState>();
+
+  final List<String> ufs = [ '',
+    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO',
+    'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI',
+    'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO',
+  ];
+
+  String ufSelecionado = '';
+
   @override
   Widget build(BuildContext context) {
 
     double width = MediaQuery.of(context).size.width > 780
       ? 700 : MediaQuery.of(context).size.width * 0.9;
-
-    final _formKey = GlobalKey<FormState>();
 
     onPressedDatePicker() async {
       DateTime? datePicker = await showDatePicker(
@@ -36,7 +62,7 @@ class _MainPageState extends State<MainPage> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.deepPurple[200],
+      backgroundColor: Colors.deepPurple.shade200,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 48.0),
@@ -114,9 +140,8 @@ class _MainPageState extends State<MainPage> {
                     Row(
                       children: [
                         Flexible(
-                          child: TextFormFieldWidget(
-                            controller: Controllers.ufController,
-                            label: 'UF',
+                          child: DropdownFormFieldWidget(
+                            listItems: ufs,
                           ),
                         ),
                         const SizedBox(width: 20),
@@ -154,6 +179,24 @@ class _MainPageState extends State<MainPage> {
                       controller: Controllers.localTrabalhoController,
                       label: 'Local de Trabalho',
                     ),
+                    const SizedBox(height: 32),
+                    SizedBox(
+                      height: 40,
+                      child: TextButton(
+                        onPressed: onPressedImagePicker,
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.deepPurple.shade50,
+                        ),
+                        child: const Text(
+                          'Selecione uma imagem',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                    Text(imageName),
                     const SizedBox(height: 48),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -170,6 +213,7 @@ class _MainPageState extends State<MainPage> {
                               'Reuniões',
                               style: TextStyle(
                                 color: Color.fromRGBO(69, 39, 160, 1),
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
@@ -181,7 +225,7 @@ class _MainPageState extends State<MainPage> {
                             child: const Text(
                               'Cadastrar',
                               style: TextStyle(
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w400,
                                 fontSize: 16,
                               ),
                             ),

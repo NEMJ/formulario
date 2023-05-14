@@ -1,3 +1,4 @@
+// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
 class TextFormFieldWidget extends StatefulWidget {
@@ -91,6 +92,7 @@ class _TextFormFieldWidgetState extends State<TextFormFieldWidget> {
           } else {
             setState(() => hintText = '');
           }
+          return null;
         }
       : null
     );
