@@ -196,7 +196,12 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                     const SizedBox(height: 32),
-                    Text(imageName),
+                    Text(
+                      imageName,
+                      style: const TextStyle(
+                        color: Color.fromARGB(255, 52, 20, 106),
+                      ),
+                    ),
                     const SizedBox(height: 48),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
