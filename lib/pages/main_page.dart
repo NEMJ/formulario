@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import '../controllers/form_controllers.dart';
 import '../widgets/dropdown_form_field_widget.dart';
 import '../widgets/text_form_field_widget.dart';
+import '../services/firebase_service.dart';
+import '../models/reuniao_model.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -17,6 +19,8 @@ class _MainPageState extends State<MainPage> {
 
   String imageName = 'Nenhuma imagem selecionada';
   FilePickerResult? _imagePicker;
+
+  // List<Reuniao> reunioes = FirebaseService().getReunioes();
 
   onPressedImagePicker() async {
     _imagePicker = await FilePickerWeb.platform.pickFiles(
