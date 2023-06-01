@@ -4,32 +4,19 @@ import 'package:file_picker/file_picker.dart';
 import '../models/reuniao_model.dart';
 import './db_service.dart';
 
-class FirebaseService extends DbService {
+class FirebaseService implements DbService {
 
-  FirebaseFirestore db = FirebaseFirestore.instance;
-  FirebaseStorage storage = FirebaseStorage.instance;
-  List<Reuniao> reunioes = [];
+  final  _storage = FirebaseStorage.instance;
+  List<Reuniao> _reunioes = [];
 
   @override
-  Future<List<Reuniao>> getReunioes() async {
-    await db.collection('reunioes').orderBy('entidade').snapshots().listen((query) {
-      if(query.docs.isNotEmpty) {
-        query.docs.forEach((doc) {
-          reunioes.add(
-            Reuniao(
-              id: doc.get('id'),
-              descricao: doc.get('descricao'),
-              entidade: doc.get('entidade'),
-              diaSemana: doc.get('diaSemana'),
-              horarioInicio: doc.get('horarioInicio'),
-              horarioTermino: doc.get('horarioTermino'),
-            ),
-          );
-        });
-      }
-    });
-
-    return reunioes;
+  static Stream<List<Reuniao>> getReunioes() {
+  final reuniaoCollection = FirebaseFirestore.instance.collection('reunioes').orderBy('descricao');
+    return reuniaoCollection.snapshots().map(
+      (querySnapshot) => querySnapshot.docs.map(
+        (e) => Reuniao.fromSnapshot(e),
+      ).toList(),
+    );
   }
 
   @override
