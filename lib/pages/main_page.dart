@@ -1,6 +1,6 @@
+import 'package:flutter/material.dart';
 import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../controllers/form_controllers.dart';
 import '../widgets/dropdown_form_field_widget.dart';
@@ -207,6 +207,32 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                     const SizedBox(height: 48),
+                    // StreamBuilder<List<Reuniao>>(
+                    //   stream: FirebaseService.getReunioes(),
+                    //   builder: (context, snapshot) {
+                    //     if(snapshot.connectionState == ConnectionState.waiting) {
+                    //       return const Center(child: CircularProgressIndicator());
+                    //     } else {
+                    //       final reuniaoData = snapshot.data;
+                    //       return Expanded(
+                    //         child: ListView.builder(
+                    //           shrinkWrap: true,
+                    //           itemCount: reuniaoData!.length,
+                    //           itemBuilder: (context, index) {
+                    //             final singleReuniao = reuniaoData[index];
+                    //             return Container(
+                    //               margin: const EdgeInsets.symmetric(vertical: 5),
+                    //               child: ListTile(
+                    //                 title: Text(singleReuniao.descricao),
+                    //               ),
+                    //             );
+                    //           },
+                    //         ),
+                    //       );
+                    //     }
+                    //   },
+                    // ),
+                    // const SizedBox(height: 48),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
