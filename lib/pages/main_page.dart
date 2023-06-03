@@ -207,32 +207,34 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                     const SizedBox(height: 48),
-                    // StreamBuilder<List<Reuniao>>(
-                    //   stream: FirebaseService.getReunioes(),
-                    //   builder: (context, snapshot) {
-                    //     if(snapshot.connectionState == ConnectionState.waiting) {
-                    //       return const Center(child: CircularProgressIndicator());
-                    //     } else {
-                    //       final reuniaoData = snapshot.data;
-                    //       return Expanded(
-                    //         child: ListView.builder(
-                    //           shrinkWrap: true,
-                    //           itemCount: reuniaoData!.length,
-                    //           itemBuilder: (context, index) {
-                    //             final singleReuniao = reuniaoData[index];
-                    //             return Container(
-                    //               margin: const EdgeInsets.symmetric(vertical: 5),
-                    //               child: ListTile(
-                    //                 title: Text(singleReuniao.descricao),
-                    //               ),
-                    //             );
-                    //           },
-                    //         ),
-                    //       );
-                    //     }
-                    //   },
-                    // ),
-                    // const SizedBox(height: 48),
+                    StreamBuilder<List<Reuniao>>(
+                      stream: FirebaseService.getReunioes(),
+                      builder: (context, snapshot) {
+                        if(snapshot.connectionState == ConnectionState.waiting) {
+                          return const Center(child: CircularProgressIndicator());
+                        } else {
+                          final reuniaoData = snapshot.data;
+                          return Flexible(
+                            fit: FlexFit.loose,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: reuniaoData!.length,
+                              itemBuilder: (context, index) {
+                                final singleReuniao = reuniaoData[index];
+                                return Container(
+                                  margin: const EdgeInsets.symmetric(vertical: 5),
+                                  child: ListTile(
+                                    title: Text(singleReuniao.descricao),
+                                    onTap: () => print('Deu certo'),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                    const SizedBox(height: 48),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
