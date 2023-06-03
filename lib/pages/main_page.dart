@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:formulario/widgets/checkbox_widget.dart';
 import 'package:intl/intl.dart';
 import '../controllers/form_controllers.dart';
+import '../models/checkbox_model.dart';
 import '../widgets/dropdown_form_field_widget.dart';
 import '../widgets/text_form_field_widget.dart';
 import '../services/firebase_service.dart';
@@ -19,8 +21,6 @@ class _MainPageState extends State<MainPage> {
 
   String imageName = 'Nenhuma imagem selecionada';
   FilePickerResult? _imagePicker;
-
-  // List<Reuniao> reunioes = FirebaseService().getReunioes();
 
   onPressedImagePicker() async {
     _imagePicker = await FilePickerWeb.platform.pickFiles(
@@ -221,11 +221,12 @@ class _MainPageState extends State<MainPage> {
                               itemCount: reuniaoData!.length,
                               itemBuilder: (context, index) {
                                 final singleReuniao = reuniaoData[index];
-                                return Container(
-                                  margin: const EdgeInsets.symmetric(vertical: 5),
-                                  child: ListTile(
-                                    title: Text(singleReuniao.descricao),
-                                    onTap: () => print('Deu certo'),
+                                return CheckBoxWidget(
+                                  item: CheckBoxModel(
+                                    id: singleReuniao.id,
+                                    title: singleReuniao.descricao,
+                                    subtitle: "${singleReuniao.diaSemana} - ${singleReuniao.horarioInicio} - ${singleReuniao.horarioTermino}",
+                                    checked: false,
                                   ),
                                 );
                               },

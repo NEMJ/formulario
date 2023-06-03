@@ -19,7 +19,7 @@ class Participante {
 
   String id;
   String refImage;
-  List<Map> reunioes;
+  List<dynamic> reunioes;
   String nome;
   String apelido;
   String rua;
