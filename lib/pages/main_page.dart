@@ -213,23 +213,47 @@ class _MainPageState extends State<MainPage> {
                         if(snapshot.connectionState == ConnectionState.waiting) {
                           return const Center(child: CircularProgressIndicator());
                         } else {
-                          final reuniaoData = snapshot.data;
+
+                          final List<String>? entidades = []; // Lista de entidades para separar as reuniões.
+                          final reuniaoData = snapshot.data; // Lista de reuniões.
+
+                          // Verificação para não alimentar a lista com entidades diferentes.
+                          if(reuniaoData != null) {
+                            reuniaoData.forEach((reuniao) {
+                              if(entidades != null && entidades.contains(reuniao.entidade)) return;
+                              entidades!.add(reuniao.entidade);
+                            });
+                          }
+
                           return Flexible(
                             fit: FlexFit.loose,
                             child: ListView.builder(
                               shrinkWrap: true,
-                              itemCount: reuniaoData!.length,
-                              itemBuilder: (context, index) {
-                                final singleReuniao = reuniaoData[index];
-                                return CheckBoxWidget(
-                                  item: CheckBoxModel(
-                                    id: singleReuniao.id,
-                                    title: singleReuniao.descricao,
-                                    subtitle: "${singleReuniao.diaSemana} - ${singleReuniao.horarioInicio} - ${singleReuniao.horarioTermino}",
-                                    checked: false,
-                                  ),
+                              itemCount: entidades!.length,
+                              itemBuilder: (context, i) {
+                                return ExpansionTile(
+                                  title: Text(entidades[i]),
+                                  children: [
+                                    ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: reuniaoData!.length,
+                                      itemBuilder: (context, index) {
+                                        final singleReuniao = reuniaoData[index];
+                                        if(singleReuniao.entidade == entidades[i]) {
+                                          return CheckBoxWidget(
+                                            item: CheckBoxModel(
+                                              id: singleReuniao.id,
+                                              title: singleReuniao.descricao,
+                                              subtitle: "${singleReuniao.diaSemana} - ${singleReuniao.horarioInicio} - ${singleReuniao.horarioTermino}",
+                                              checked: false,
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    ),
+                                  ],
                                 );
-                              },
+                              }
                             ),
                           );
                         }
