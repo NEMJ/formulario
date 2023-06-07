@@ -230,27 +230,20 @@ class _MainPageState extends State<MainPage> {
                             child: ListView.builder(
                               shrinkWrap: true,
                               itemCount: entidades!.length,
-                              itemBuilder: (context, i) {
+                              itemBuilder: (context, index) {
                                 return ExpansionTile(
-                                  title: Text(entidades[i]),
+                                  title: Text(entidades[index]),
                                   children: [
-                                    ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: reuniaoData!.length,
-                                      itemBuilder: (context, index) {
-                                        final singleReuniao = reuniaoData[index];
-                                        if(singleReuniao.entidade == entidades[i]) {
-                                          return CheckBoxWidget(
-                                            item: CheckBoxModel(
-                                              id: singleReuniao.id,
-                                              title: singleReuniao.descricao,
-                                              subtitle: "${singleReuniao.diaSemana} - ${singleReuniao.horarioInicio} - ${singleReuniao.horarioTermino}",
-                                              checked: false,
-                                            ),
-                                          );
-                                        }
-                                      },
-                                    ),
+                                    for(var i = 0; i < reuniaoData!.length; i++)
+                                      if(reuniaoData[i].entidade == entidades[index])
+                                        CheckBoxWidget(
+                                          item: CheckBoxModel(
+                                            id: reuniaoData[i].id,
+                                            title: reuniaoData[i].descricao,
+                                            subtitle: "${reuniaoData[i].diaSemana} - ${reuniaoData[i].horarioInicio} - ${reuniaoData[i].horarioTermino}",
+                                            checked: false,
+                                          ),
+                                        ),
                                   ],
                                 );
                               }
