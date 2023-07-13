@@ -259,23 +259,6 @@ class _MainPageState extends State<MainPage> {
                         SizedBox(
                           width: 110,
                           height: 40,
-                          child: TextButton(
-                            onPressed: () {},
-                            style: TextButton.styleFrom(
-                              backgroundColor: Colors.deepPurple.shade200,
-                            ),
-                            child: const Text(
-                              'Reuniões',
-                              style: TextStyle(
-                                color: Color.fromRGBO(69, 39, 160, 1),
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 110,
-                          height: 40,
                           child: ElevatedButton(
                             child: const Text(
                               'Cadastrar',
@@ -284,7 +267,15 @@ class _MainPageState extends State<MainPage> {
                                 fontSize: 16,
                               ),
                             ),
-                            onPressed: () => _formKey.currentState!.validate(),
+                            onPressed: () {
+                              bool validado = _formKey.currentState!.validate();
+                              if(validado) {
+                                print('Validação concluída');
+                                // FirebaseService.sendData(Participante()); -- Ajustar envio com foto
+                              } else {
+                                print('Preencha os campos obrigatórios');
+                              }
+                            },
                           ),
                         ),
                       ],

@@ -29,13 +29,4 @@ class Reuniao {
       horarioTermino: snapshot['horarioTermino'],
     );
   }
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "descricao": descricao,
-    "entidade": entidade,
-    "diaSemana": diaSemana,
-    "horarioInicio": horarioInicio,
-    "horarioTermino": horarioTermino,
-  };
 }
