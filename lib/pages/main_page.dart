@@ -5,6 +5,7 @@ import 'package:formulario/widgets/checkbox_widget.dart';
 import 'package:intl/intl.dart';
 import '../controllers/form_controllers.dart';
 import '../models/checkbox_model.dart';
+import '../models/participante_model.dart';
 import '../widgets/dropdown_form_field_widget.dart';
 import '../widgets/text_form_field_widget.dart';
 import '../services/firebase_service.dart';
@@ -134,7 +135,7 @@ class _MainPageState extends State<MainPage> {
                         const SizedBox(width: 20),
                         Flexible(
                           child: TextFormFieldWidget(
-                            controller: Controllers.telefoneController,
+                            controller: Controllers.telFixoController,
                             label: 'Telefone',
                           ),
                         ),
@@ -175,7 +176,7 @@ class _MainPageState extends State<MainPage> {
                     ),
                     const SizedBox(height: 32),
                     TextFormFieldWidget(
-                      controller: Controllers.formacaoController,
+                      controller: Controllers.formProfController,
                       label: 'Formação Profissional',
                     ),
                     const SizedBox(height: 32),
@@ -270,8 +271,22 @@ class _MainPageState extends State<MainPage> {
                             onPressed: () {
                               bool validado = _formKey.currentState!.validate();
                               if(validado) {
-                                print('Validação concluída');
-                                // FirebaseService.sendData(Participante()); -- Ajustar envio com foto
+                                FirebaseService.sendData(Participante(
+                                  refImage: '',
+                                  reunioes: [],
+                                  nome: Controllers.nameController.text,
+                                  apelido: Controllers.apelidoController.text,
+                                  rua: Controllers.ruaController.text,
+                                  bairro: Controllers.bairroController.text,
+                                  cidade: Controllers.cidadeController.text,
+                                  uf: Controllers.ufController.text,
+                                  celular: Controllers.celularController.text,
+                                  telFixo: Controllers.telFixoController.text,
+                                  profissao: Controllers.profissaoController.text,
+                                  formProf: Controllers.formProfController.text,
+                                  localTrabalho: Controllers.localTrabalhoController.text,
+                                  dataNascimento: Controllers.dataNascimentoController.text
+                                ));  // Ajustar envio com foto
                               } else {
                                 print('Preencha os campos obrigatórios');
                               }

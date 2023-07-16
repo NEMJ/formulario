@@ -7,12 +7,11 @@ import './db_service.dart';
 
 class FirebaseService implements DbService {
 
-  final  _storage = FirebaseStorage.instance;
-  List<Reuniao> _reunioes = [];
+  final _storage = FirebaseStorage.instance;
 
-  @override
   static Stream<List<Reuniao>> getReunioes() {
-  final reuniaoCollection = FirebaseFirestore.instance.collection('reunioes').orderBy('descricao');
+    final reuniaoCollection = FirebaseFirestore.instance.collection('reunioes').orderBy('descricao');
+
     return reuniaoCollection.snapshots().map(
       (querySnapshot) => querySnapshot.docs.map(
         (e) => Reuniao.fromSnapshot(e),
@@ -20,9 +19,8 @@ class FirebaseService implements DbService {
     );
   }
 
-  @override
   static Future sendData(Participante participante) async {
-    final participanteCollection = FirebaseFirestore.instance.collection('participante');
+    final participanteCollection = FirebaseFirestore.instance.collection('participantes');
     final pid = participanteCollection.doc().id;
     final docRef = participanteCollection.doc(pid);
 
@@ -36,7 +34,7 @@ class FirebaseService implements DbService {
       bairro: participante.bairro ?? '',
       cidade: participante.cidade ?? '',
       uf: participante.uf ?? '',
-      contato: participante.contato,
+      celular: participante.celular,
       telFixo: participante.telFixo ?? '',
       profissao: participante.profissao ?? '',
       formProf: participante.formProf ?? '',

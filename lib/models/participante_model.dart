@@ -9,7 +9,7 @@ class Participante {
     this.bairro,
     this.cidade,
     this.uf,
-    required this.contato,
+    required this.celular,
     this.telFixo,
     this.profissao,
     this.formProf,
@@ -26,7 +26,7 @@ class Participante {
   String? bairro;
   String? cidade;
   String? uf;
-  String contato;
+  String celular;
   String? telFixo;
   String? profissao;
   String? formProf;
@@ -43,7 +43,7 @@ class Participante {
     "bairro": bairro ?? '',
     "cidade": cidade ?? '',
     "uf": uf ?? '',
-    "contato": contato,
+    "celular": celular,
     "telFixo": telFixo ?? '',
     "profissao": profissao ?? '',
     "formProf": formProf ?? '',
