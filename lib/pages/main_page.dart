@@ -147,6 +147,7 @@ class _MainPageState extends State<MainPage> {
                         Flexible(
                           child: DropdownFormFieldWidget(
                             listItems: ufs,
+                            onChanged: (escolha) => Controllers.ufController.text = escolha as String,
                           ),
                         ),
                         const SizedBox(width: 20),

@@ -27,9 +27,7 @@ class _DropdownFormFieldWidgetState extends State<DropdownFormFieldWidget> {
         items: widget.listItems.map(
           (e) => DropdownMenuItem(value: e, child: Text(e)),
         ).toList(),
-        onChanged: (uf) {
-            ufSelecionado = uf as String;
-        },
+        onChanged: widget.onChanged,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.only(left: 11, right: 4),
           floatingLabelBehavior: FloatingLabelBehavior.always,
