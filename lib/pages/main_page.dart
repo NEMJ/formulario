@@ -275,22 +275,24 @@ class _MainPageState extends State<MainPage> {
                             onPressed: () {
                               bool validado = _formKey.currentState!.validate();
                               if(validado) {
-                                FirebaseService.sendData(Participante(
-                                  refImage: '',
-                                  reunioes: [],
-                                  nome: Controllers.nameController.text,
-                                  apelido: Controllers.apelidoController.text,
-                                  rua: Controllers.ruaController.text,
-                                  bairro: Controllers.bairroController.text,
-                                  cidade: Controllers.cidadeController.text,
-                                  uf: Controllers.ufController.text,
-                                  celular: Controllers.celularController.text,
-                                  telFixo: Controllers.telFixoController.text,
-                                  profissao: Controllers.profissaoController.text,
-                                  formProf: Controllers.formProfController.text,
-                                  localTrabalho: Controllers.localTrabalhoController.text,
-                                  dataNascimento: Controllers.dataNascimentoController.text
-                                ));  // Ajustar envio com foto
+                                FirebaseService.sendData(
+                                  Participante(
+                                    reunioes: [],
+                                    nome: Controllers.nameController.text,
+                                    apelido: Controllers.apelidoController.text,
+                                    rua: Controllers.ruaController.text,
+                                    bairro: Controllers.bairroController.text,
+                                    cidade: Controllers.cidadeController.text,
+                                    uf: Controllers.ufController.text,
+                                    celular: Controllers.celularController.text,
+                                    telFixo: Controllers.telFixoController.text,
+                                    profissao: Controllers.profissaoController.text,
+                                    formProf: Controllers.formProfController.text,
+                                    localTrabalho: Controllers.localTrabalhoController.text,
+                                    dataNascimento: Controllers.dataNascimentoController.text
+                                  ),
+                                  selectedImageInBytes
+                                );  // Ajustar envio com foto
                               } else {
                                 print('Preencha os campos obrigatórios');
                               }

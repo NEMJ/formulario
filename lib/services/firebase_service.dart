@@ -1,16 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:file_picker/file_picker.dart';
+import 'dart:typed_data';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
+import 'package:firebase_storage/firebase_storage.dart' as storage;
 import '../models/participante_model.dart';
 import '../models/reuniao_model.dart';
-import './db_service.dart';
 
-class FirebaseService implements DbService {
-
-  // final _storage = FirebaseStorage.instance;
+class FirebaseService {
 
   static Stream<List<Reuniao>> getReunioes() {
-    final reuniaoCollection = FirebaseFirestore.instance.collection('reunioes').orderBy('descricao');
+    final reuniaoCollection = firestore.FirebaseFirestore
+      .instance.collection('reunioes').orderBy('descricao');
 
     return reuniaoCollection.snapshots().map(
       (querySnapshot) => querySnapshot.docs.map(
@@ -19,14 +17,22 @@ class FirebaseService implements DbService {
     );
   }
 
-  static Future sendData(Participante participante) async {
-    final participanteCollection = FirebaseFirestore.instance.collection('participantes');
+  static Future sendData(Participante participante, Uint8List? image) async {
+
+    final participanteCollection = firestore.FirebaseFirestore
+      .instance.collection('participantes');
+
     final pid = participanteCollection.doc().id;
     final docRef = participanteCollection.doc(pid);
+    String? urlImage;
+
+    if(image != null) {
+      urlImage = await sendPhoto(image, pid);
+    }
 
     final newParticipante = Participante(
       id: pid,
-      refImage: participante.refImage ?? '',
+      refImage: urlImage ?? '',
       reunioes: participante.reunioes ?? [],
       nome: participante.nome,
       apelido: participante.apelido ?? '',
@@ -49,6 +55,30 @@ class FirebaseService implements DbService {
     }
   }
 
-  @override
-  sendPhoto(FilePickerResult? image) {}
+  static Future<String> sendPhoto(Uint8List image, String nameImage) async {
+    String imageUrl = '';
+
+    try {
+      storage.UploadTask uploadTask;
+
+      storage.Reference ref = storage.FirebaseStorage.instance
+        .ref()
+        .child('images')
+        .child('/' + nameImage);
+      
+      final metadata = storage.SettableMetadata(contentType: 'image');
+
+      uploadTask = ref.putData(image, metadata);
+
+      await uploadTask.whenComplete(() async {
+        imageUrl = await ref.getDownloadURL();
+      });
+      ;
+
+    } catch(e) {
+      print(e);
+    }
+
+    return imageUrl;
+  }
 }
