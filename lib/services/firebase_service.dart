@@ -7,7 +7,7 @@ import './db_service.dart';
 
 class FirebaseService implements DbService {
 
-  final _storage = FirebaseStorage.instance;
+  // final _storage = FirebaseStorage.instance;
 
   static Stream<List<Reuniao>> getReunioes() {
     final reuniaoCollection = FirebaseFirestore.instance.collection('reunioes').orderBy('descricao');

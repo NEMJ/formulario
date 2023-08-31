@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:file_picker/_internal/file_picker_web.dart';
+// import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:formulario/widgets/checkbox_widget.dart';
 import 'package:intl/intl.dart';
 import '../controllers/form_controllers.dart';
@@ -21,16 +22,18 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   String imageName = 'Nenhuma imagem selecionada';
-  FilePickerResult? _imagePicker;
+  Uint8List? selectedImageInBytes;
 
   onPressedImagePicker() async {
-    _imagePicker = await FilePickerWeb.platform.pickFiles(
+    FilePickerResult? _imagePicker = await FilePicker.platform.pickFiles(
       type: FileType.image,
     );
-    
+
     if(_imagePicker != null) {
-      imageName = _imagePicker!.files.single.name;
-      setState(() => imageName);
+      setState(() {
+        imageName = _imagePicker.files.single.name;
+        selectedImageInBytes = _imagePicker.files.single.bytes;
+      });
     }
   }
 
