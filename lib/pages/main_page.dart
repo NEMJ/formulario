@@ -226,6 +226,7 @@ class _MainPageState extends State<MainPage> {
                             reuniaoData.forEach((reuniao) {
                               if(entidades != null && entidades.contains(reuniao.entidade)) return;
                               entidades!.add(reuniao.entidade);
+                              entidades.sort();
                             });
                           }
 
