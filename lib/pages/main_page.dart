@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:file_picker/_internal/file_picker_web.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:formulario/widgets/checkbox_widget.dart';
@@ -46,6 +45,7 @@ class _MainPageState extends State<MainPage> {
   ];
 
   String ufSelecionado = '';
+  List<CheckBoxModel> checkboxList = [];
 
   @override
   Widget build(BuildContext context) {
@@ -248,6 +248,7 @@ class _MainPageState extends State<MainPage> {
                                             subtitle: "${reuniaoData[i].diaSemana} - ${reuniaoData[i].horarioInicio} - ${reuniaoData[i].horarioTermino}",
                                             checked: false,
                                           ),
+                                          checkboxList: checkboxList,
                                         ),
                                   ],
                                 );
@@ -277,7 +278,7 @@ class _MainPageState extends State<MainPage> {
                               if(validado) {
                                 FirebaseService.sendData(
                                   Participante(
-                                    reunioes: [],
+                                    reunioes: checkboxList,
                                     nome: Controllers.nameController.text,
                                     apelido: Controllers.apelidoController.text,
                                     rua: Controllers.ruaController.text,
@@ -292,7 +293,7 @@ class _MainPageState extends State<MainPage> {
                                     dataNascimento: Controllers.dataNascimentoController.text
                                   ),
                                   selectedImageInBytes
-                                );  // Ajustar envio com foto
+                                );
                               } else {
                                 print('Preencha os campos obrigatórios');
                               }

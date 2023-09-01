@@ -33,7 +33,7 @@ class FirebaseService {
     final newParticipante = Participante(
       id: pid,
       refImage: urlImage ?? '',
-      reunioes: participante.reunioes ?? [],
+      reunioes: participante.reunioes?.map((e) => e.toMap()).toList() ?? [],
       nome: participante.nome,
       apelido: participante.apelido ?? '',
       rua: participante.rua ?? '',

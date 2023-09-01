@@ -4,10 +4,12 @@ import '../models/checkbox_model.dart';
 class CheckBoxWidget extends StatefulWidget {
   const CheckBoxWidget({
     required this.item,
+    required this.checkboxList,
     super.key
   });
 
   final CheckBoxModel item;
+  final List<CheckBoxModel> checkboxList;
 
   @override
   State<CheckBoxWidget> createState() => _CheckBoxWidgetState();
@@ -42,6 +44,7 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget> {
         onChanged: (value) {
           setState(() {
             widget.item.checked = value ?? false;
+            widget.checkboxList.add(widget.item);
           });
         },
       ),
