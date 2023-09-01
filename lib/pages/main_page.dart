@@ -276,30 +276,78 @@ class _MainPageState extends State<MainPage> {
                             onPressed: () {
                               bool validado = _formKey.currentState!.validate();
                               if(validado) {
-                                FirebaseService.sendData(
-                                  Participante(
-                                    reunioes: checkboxList,
-                                    nome: Controllers.nameController.text,
-                                    apelido: Controllers.apelidoController.text,
-                                    rua: Controllers.ruaController.text,
-                                    bairro: Controllers.bairroController.text,
-                                    cidade: Controllers.cidadeController.text,
-                                    uf: Controllers.ufController.text,
-                                    celular: Controllers.celularController.text,
-                                    telFixo: Controllers.telFixoController.text,
-                                    profissao: Controllers.profissaoController.text,
-                                    formProf: Controllers.formProfController.text,
-                                    localTrabalho: Controllers.localTrabalhoController.text,
-                                    dataNascimento: Controllers.dataNascimentoController.text
+                                showDialog(
+                                  context: context,
+                                  builder: (_) => AlertDialog(
+                                    title: const Text('Confirmar cadastro?'),
+                                    actionsAlignment: MainAxisAlignment.spaceEvenly,
+                                    actionsPadding: const EdgeInsets.fromLTRB(8, 14, 8, 16),
+                                    actions: [
+                                      SizedBox(
+                                        width: 100,
+                                        height: 40,
+                                        child: TextButton(
+                                          onPressed: () => Navigator.of(context).pop(),
+                                          style: TextButton.styleFrom(
+                                            backgroundColor: Colors.red[100],
+                                            foregroundColor: Colors.red,
+                                          ),
+                                          child: const Text('Cancelar'),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 100,
+                                        height: 40,
+                                        child: ElevatedButton(
+                                          onPressed: () {
+                                            FirebaseService.sendData(
+                                              Participante(
+                                                reunioes: checkboxList,
+                                                nome: Controllers.nameController.text,
+                                                apelido: Controllers.apelidoController.text,
+                                                rua: Controllers.ruaController.text,
+                                                bairro: Controllers.bairroController.text,
+                                                cidade: Controllers.cidadeController.text,
+                                                uf: Controllers.ufController.text,
+                                                celular: Controllers.celularController.text,
+                                                telFixo: Controllers.telFixoController.text,
+                                                profissao: Controllers.profissaoController.text,
+                                                formProf: Controllers.formProfController.text,
+                                                localTrabalho: Controllers.localTrabalhoController.text,
+                                                dataNascimento: Controllers.dataNascimentoController.text
+                                              ),
+                                              selectedImageInBytes
+                                            );
+                                            setState(() {
+                                              selectedImageInBytes = null; // Limpa a variável que guarda a imagem
+                                              imageName = 'Nenhuma imagem selecionada'; // Redefine a variável que contém o nome da imagem selecionada
+                                              _formKey.currentState!.reset(); // Redefine cada FormField que é descendente deste Form de volta ao seu FormField.initialValue.
+                                            });
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Confirmar'),
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  selectedImageInBytes
                                 );
-                                setState(() {
-                                  selectedImageInBytes = null; // Limpa a variável que guarda a imagem
-                                  imageName = 'Nenhuma imagem selecionada'; // Redefine a variável que contém o nome da imagem selecionada
-                                  _formKey.currentState!.reset(); // Redefine cada FormField que é descendente deste Form de volta ao seu FormField.initialValue.
-                                }); 
                               } else {
+                                showDialog(
+                                  context: context,
+                                  builder: (_) => AlertDialog(
+                                    title: const Text('Preencha os campos obrigatórios'),
+                                    actions: [
+                                      SizedBox(
+                                        width: 80,
+                                        height: 35,
+                                        child: ElevatedButton(
+                                          onPressed: () => Navigator.of(context).pop(),
+                                          child: const Text('OK'),
+                                        ),
+                                      ),
+                                    ]
+                                  ),
+                                );
                                 print('Preencha os campos obrigatórios');
                               }
                             },
