@@ -44,7 +44,6 @@ class _MainPageState extends State<MainPage> {
     'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO',
   ];
 
-  String ufSelecionado = '';
   List<CheckBoxModel> checkboxList = [];
 
   @override
@@ -294,6 +293,11 @@ class _MainPageState extends State<MainPage> {
                                   ),
                                   selectedImageInBytes
                                 );
+                                setState(() {
+                                  selectedImageInBytes = null; // Limpa a variável que guarda a imagem
+                                  imageName = 'Nenhuma imagem selecionada'; // Redefine a variável que contém o nome da imagem selecionada
+                                  _formKey.currentState!.reset(); // Redefine cada FormField que é descendente deste Form de volta ao seu FormField.initialValue.
+                                }); 
                               } else {
                                 print('Preencha os campos obrigatórios');
                               }
