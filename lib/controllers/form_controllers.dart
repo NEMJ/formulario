@@ -13,4 +13,19 @@ class Controllers {
   static TextEditingController profissaoController = TextEditingController();
   static TextEditingController formProfController = TextEditingController();
   static TextEditingController localTrabalhoController = TextEditingController();
+
+  static cleanControllers() {
+    nameController.text = '';
+    apelidoController.text = '';
+    celularController.text = '';
+    telFixoController.text = '';
+    dataNascimentoController.text = '';
+    ufController.text = '';
+    cidadeController.text = '';
+    ruaController.text = '';
+    bairroController.text = '';
+    profissaoController.text = '';
+    formProfController.text = '';
+    localTrabalhoController.text = '';
+  }
 }

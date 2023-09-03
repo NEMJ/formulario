@@ -322,6 +322,7 @@ class _MainPageState extends State<MainPage> {
                                               selectedImageInBytes = null; // Limpa a variável que guarda a imagem
                                               imageName = 'Nenhuma imagem selecionada'; // Redefine a variável que contém o nome da imagem selecionada
                                               _formKey.currentState!.reset(); // Redefine cada FormField que é descendente deste Form de volta ao seu FormField.initialValue.
+                                              Controllers.cleanControllers(); // Força a limpeza dos campos que o método "_formKey.currentState!.reset()" não faz.
                                             });
                                             Navigator.of(context).pop();
                                           },
