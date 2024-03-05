@@ -1,15 +1,14 @@
-// ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 
 class DropdownFormFieldWidget extends StatefulWidget {
-  DropdownFormFieldWidget({
+  const DropdownFormFieldWidget({
     required this.listItems,
     this.onChanged,
     super.key,
   });
 
   final List<String> listItems;
-  Function(String?)? onChanged;
+  final Function(String?)? onChanged;
 
   @override
   State<DropdownFormFieldWidget> createState() => _DropdownFormFieldWidgetState();

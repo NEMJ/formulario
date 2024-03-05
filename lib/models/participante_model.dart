@@ -51,3 +51,5 @@ class Participante {
     "dataNascimento": dataNascimento ?? ''
   };
 }
+
+// Faltam os campos "tipoParticipante" e "contato".

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:firebase_storage/firebase_storage.dart' as storage;
 import '../models/participante_model.dart';
 import '../models/reuniao_model.dart';
+import 'package:uuid/uuid.dart';
 
 class FirebaseService {
 
@@ -22,7 +23,7 @@ class FirebaseService {
     final participanteCollection = firestore.FirebaseFirestore
       .instance.collection('participantes');
 
-    final pid = participanteCollection.doc().id;
+    final pid = const Uuid().v1();
     final docRef = participanteCollection.doc(pid);
     String? urlImage;
 
@@ -73,8 +74,6 @@ class FirebaseService {
       await uploadTask.whenComplete(() async {
         imageUrl = await ref.getDownloadURL();
       });
-      ;
-
     } catch(e) {
       print(e);
     }
